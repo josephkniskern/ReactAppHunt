@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { toast } from "../utils/toast";
 
 function useFormValidation(initialState, validate, action) {
@@ -24,7 +24,7 @@ function useFormValidation(initialState, validate, action) {
 
   function handleChange(event) {
     setValues((previousValues) => ({
-      ...setValues,
+      ...previousValues,
       [event.target.name]: event.target.value,
     }));
   }

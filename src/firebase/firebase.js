@@ -4,7 +4,7 @@ import "firebase/firestore";
 
 import firebaseConfig from "./config";
 
-class Firebase extends Component {
+class Firebase {
   constructor() {
     app.initializeApp(firebaseConfig);
     this.app = app;
