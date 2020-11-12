@@ -29,7 +29,7 @@ const ProductList = (props) => {
       .onSnapshot(handleSnapshot);
   }
 
-  function handleSnapshot() {
+  function handleSnapshot(snapshot) {
     const products = snapshot.docs.map((doc) => {
       return { id: doc.id, ...doc.data() };
     });
