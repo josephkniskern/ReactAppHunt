@@ -85,7 +85,7 @@ const Product = (props) => {
                 <IonCol class="ion-text-center">
                   <ProductItem product={product} browser={openBrowser} />
                   <ProductPhotos photos={product.photos} />
-                  <IonButton onClick={() => handleAddVote()} size="small">
+                  <IonButton onClick={() => handleAddVote()} size="large">
                     Upvote
                   </IonButton>
                 </IonCol>
