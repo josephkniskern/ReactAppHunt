@@ -33,7 +33,6 @@ const ProductList = (props) => {
     const products = snapshot.docs.map((doc) => {
       return { id: doc.id, ...doc.data() };
     });
-
     setProducts(products);
   }
 
@@ -44,7 +43,7 @@ const ProductList = (props) => {
       <ProductItem
         key={product.id}
         showCount={true}
-        url={`/products/${product.id}`}
+        url={`/product/${product.id}`}
         product={product}
         index={index + 1}
       />,

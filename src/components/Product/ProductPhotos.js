@@ -1,26 +1,25 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { IonCard, IonImg, IonItem, IonList, IonThumbnail } from "@ionic/react";
+import { IonImg, IonThumbnail, IonItem, IonCard, IonList } from "@ionic/react";
 
 function ProductPhotos({ photos }) {
   const [index, setIndex] = useState(0);
-
   return (
     <IonCard>
-      <IonList>
+      <IonList lines="none">
         <IonItem>
           <div style={{ margin: "0 auto" }}>
-            <IonImg src={photos[index]} />
+            <IonImg src={photos[index]} alt="Missing image" />
           </div>
         </IonItem>
         <IonItem>
-          {photos.map((photo, index) => (
+          {photos.map((p, i) => (
             <IonThumbnail
-              key={`photo_${index}`}
-              onClick={() => setIndex(index)}
+              key={`photo_${i}`}
+              onClick={() => setIndex(i)}
               slot="start"
             >
-              <IonImg src={photo} />
+              <IonImg src={p} />
             </IonThumbnail>
           ))}
         </IonItem>

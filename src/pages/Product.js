@@ -10,6 +10,7 @@ import {
 import { closeCircleOutline } from "ionicons/icons";
 
 import firebase from "../firebase";
+import productService from "../services/product";
 import { Plugins } from "@capacitor/core";
 import UserContext from "../contexts/UserContext";
 import NavHeader from "../components/Header/NavHeader";
@@ -17,6 +18,7 @@ import ProductItem from "../components/Product/ProductItem";
 import ProductPhotos from "../components/Product/ProductPhotos";
 
 const { Browser } = Plugins;
+
 const Product = (props) => {
   const { user } = React.useContext(UserContext);
   const [product, setProduct] = React.useState(null);
@@ -25,7 +27,7 @@ const Product = (props) => {
 
   React.useEffect(() => {
     getProduct();
-    //eslint-diable-next-line
+    // eslint-disable-next-line
   }, [productId]);
 
   function getProduct() {
@@ -34,11 +36,26 @@ const Product = (props) => {
     });
   }
 
+  function handleAddVote() {
+    if (!user) {
+      props.history.push("/login");
+    } else {
+      productService
+        .addUpvote(user, productId)
+        .then((newProduct) => setProduct(newProduct))
+        .catch(() => props.history.push("/login"));
+    }
+  }
+
   function handleDeleteProduct() {
     productRef
       .delete()
-      .then(() => console.log(`Document with ID ${product.id} deleted`))
-      .catch((err) => console.error("Error deleting documents", err));
+      .then(() => {
+        console.log(`Document with ID ${product.id} deleted`);
+      })
+      .catch((err) => {
+        console.error("Error deleting document:", err);
+      });
     props.history.push("/");
   }
 
@@ -47,7 +64,9 @@ const Product = (props) => {
   }
 
   async function openBrowser() {
-    await Browser.open({ url: product.url });
+    await Browser.open({
+      url: product.url,
+    });
   }
 
   return (
@@ -63,9 +82,12 @@ const Product = (props) => {
           <>
             <IonGrid>
               <IonRow>
-                <IonCol className="ion-text-center">
+                <IonCol class="ion-text-center">
                   <ProductItem product={product} browser={openBrowser} />
                   <ProductPhotos photos={product.photos} />
+                  <IonButton onClick={() => handleAddVote()} size="small">
+                    Upvote
+                  </IonButton>
                 </IonCol>
               </IonRow>
             </IonGrid>

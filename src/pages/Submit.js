@@ -1,8 +1,4 @@
 import React from "react";
-import useFormValidation from "../hooks/useFormValidation";
-import validateCreateProduct from "../components/Product/validateCreateProduct";
-import firebase from "../firebase";
-import UserContext from "../contexts/UserContext";
 import {
   IonContent,
   IonPage,
@@ -13,10 +9,14 @@ import {
   IonCol,
   IonButton,
 } from "@ionic/react";
-import LargeHeader from "../components/Header/LargeHeader";
+import useFormValidation from "../hooks/useFormValidation";
+import validateCreateProduct from "../components/Product/validateCreateProduct";
+import firebase from "../firebase";
+import UserContext from "../contexts/UserContext";
 import SmallHeader from "../components/Header/SmallHeader";
-import { toast } from "../utils/toast";
+import LargeHeader from "../components/Header/LargeHeader";
 import Upload from "../components/Form/Upload";
+import { toast } from "../utils/toast";
 
 const INITIAL_STATE = {
   title: "",
@@ -51,12 +51,14 @@ const Submit = ({ history }) => {
         ...thumb.map((f, index) =>
           firebase.storage
             .ref()
-            .child(`products/${id}_thumb_${index}.jpg`.put(f))
+            .child(`products/${id}_thumb_${index}.jpg`)
+            .put(f)
         ),
         ...photos.map((f, index) =>
           firebase.storage
             .ref()
-            .child(`products/${id}_photo_${index}.jpg`.put(f))
+            .child(`products/${id}_photo_${index}.jpg`)
+            .put(f)
         ),
       ]);
 
@@ -64,7 +66,8 @@ const Submit = ({ history }) => {
         photos.map((f, index) =>
           firebase.storage
             .ref()
-            .child(`products/${id}_photo_${index}.jpg`.getDownloadURL())
+            .child(`products/${id}_photo_${index}.jpg`)
+            .getDownloadURL()
         )
       );
 
@@ -72,7 +75,8 @@ const Submit = ({ history }) => {
         thumb.map((f, index) =>
           firebase.storage
             .ref()
-            .child(`products/${id}_thumb_${index}.jpg`.getDownloadURL())
+            .child(`products/${id}_thumb_${index}.jpg`)
+            .getDownloadURL()
         )
       );
 
@@ -88,16 +92,21 @@ const Submit = ({ history }) => {
         photos: productPhotos,
         voteCount: 1,
         comments: [],
-        votes: [{ votedBy: { id: user.uid, name: user.displayName } }],
+        votes: [
+          {
+            votedBy: { id: user.uid, name: user.displayName },
+          },
+        ],
         created: Date.now(),
       };
+      console.log(newProduct);
       setThumb([]);
       setPhotos([]);
       await firebase.db.collection("products").doc(id).set(newProduct);
       history.push("/");
-    } catch (err) {
-      console.error(err);
-      toast(err.message);
+    } catch (e) {
+      console.error(e);
+      toast(e.message);
       setSubmitting(false);
     }
   }
@@ -105,7 +114,7 @@ const Submit = ({ history }) => {
   return (
     <IonPage>
       <SmallHeader title="Submit" />
-      <IonContent fullscreen>
+      <IonContent>
         <LargeHeader title="Submit" />
         <IonItem lines="full">
           <IonLabel position="floating">Title</IonLabel>
@@ -117,6 +126,7 @@ const Submit = ({ history }) => {
             required
           ></IonInput>
         </IonItem>
+
         <IonItem lines="full">
           <IonLabel position="floating">Description</IonLabel>
           <IonInput
@@ -127,12 +137,13 @@ const Submit = ({ history }) => {
             required
           ></IonInput>
         </IonItem>
+
         <IonItem lines="full">
           <IonLabel position="floating">URL</IonLabel>
           <IonInput
             name="url"
-            value={values.url}
             type="url"
+            value={values.url}
             onIonChange={handleChange}
             required
           ></IonInput>
@@ -143,7 +154,7 @@ const Submit = ({ history }) => {
               files={thumb}
               onChange={setThumb}
               placeholder="Select Thumbnail"
-            ></Upload>
+            />
           </IonCol>
         </IonRow>
         <IonRow>
@@ -153,7 +164,7 @@ const Submit = ({ history }) => {
               onChange={setPhotos}
               placeholder="Select Product Photos"
               multiple
-            ></Upload>
+            />
           </IonCol>
         </IonRow>
         <IonRow>
@@ -164,7 +175,9 @@ const Submit = ({ history }) => {
               expand="block"
               disabled={submitting}
               onClick={handleSubmit}
-            ></IonButton>
+            >
+              Submit
+            </IonButton>
           </IonCol>
         </IonRow>
       </IonContent>

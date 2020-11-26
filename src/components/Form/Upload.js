@@ -9,13 +9,13 @@ const { Camera } = Plugins;
 
 function Upload({ onChange, placeholder, files, multiple, ...rest }) {
   const handleSelectFile = async (evt) => {
-    if (isPlatform("mebile")) {
+    if (isPlatform("mobile")) {
       const image = await Camera.getPhoto({
         quality: 90,
         allowEditing: false,
         resultType: CameraResultType.DataUrl,
       });
-      const blob = dataURItoBlob(image.dataURL);
+      const blob = dataURItoBlob(image.dataUrl);
 
       onChange([blob]);
     } else {
@@ -28,7 +28,7 @@ function Upload({ onChange, placeholder, files, multiple, ...rest }) {
       {!isPlatform("mobile") && (
         <input
           id="file"
-          type="text"
+          type="file"
           className="file-input"
           accept="image/*"
           multiple={multiple}

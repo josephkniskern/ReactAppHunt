@@ -58,7 +58,6 @@ const App = () => {
           <IonTabs>
             <IonRouterOutlet>
               <Route
-                exact
                 path="/"
                 render={() => <Redirect to="/home" />}
                 exact={true}
@@ -72,7 +71,7 @@ const App = () => {
               <Route path="/register" component={Signup} />
               <Route path="/login" component={Login} />
               <Route path="/forgot" component={Forgot} />
-              <Route path="/product:productId" component={Product} />
+              <Route path="/product/:productId" component={Product} />
               <Route component={() => <Redirect to="/home" />} />
             </IonRouterOutlet>
             <IonTabBar slot="bottom">
