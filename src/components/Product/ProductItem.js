@@ -21,7 +21,7 @@ import {
 import UserContext from "../../contexts/UserContext";
 import productService from "../../services/product";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
-// import "./ProductItem.css";
+import "./ProductItem.css";
 
 const ProductItem = ({ product, history, url, browser }) => {
   const { user } = React.useContext(UserContext);
