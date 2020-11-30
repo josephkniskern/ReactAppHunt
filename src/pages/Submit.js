@@ -149,8 +149,9 @@ const Submit = ({ history }) => {
           ></IonInput>
         </IonItem>
         <IonRow>
-          <IonCol>
+          <IonCol class="ion-text-center">
             <Upload
+              size="small"
               files={thumb}
               onChange={setThumb}
               placeholder="Select Thumbnail"
@@ -158,8 +159,9 @@ const Submit = ({ history }) => {
           </IonCol>
         </IonRow>
         <IonRow>
-          <IonCol>
+          <IonCol class="ion-text-center">
             <Upload
+              size="small"
               files={photos}
               onChange={setPhotos}
               placeholder="Select Product Photos"
@@ -168,11 +170,10 @@ const Submit = ({ history }) => {
           </IonCol>
         </IonRow>
         <IonRow>
-          <IonCol>
+          <IonCol class="ion-text-center">
             <IonButton
               type="submit"
               color="primary"
-              expand="block"
               disabled={submitting}
               onClick={handleSubmit}
             >

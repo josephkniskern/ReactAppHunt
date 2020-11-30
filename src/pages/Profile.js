@@ -62,20 +62,19 @@ const Profile = (props) => {
               </IonCardContent>
             </IonCard>
             <IonRow>
-              <IonCol>
+              <IonCol class="ion-text-center">
                 <IonButton
-                  expand="block"
+                  shape="round"
                   routerLink={"/edit-profile"}
                   color="primary"
-                  fill="outline"
                 >
                   Edit Profile
                 </IonButton>
               </IonCol>
             </IonRow>
             <IonRow>
-              <IonCol>
-                <IonButton expand="block" color="primary" onClick={logoutUser}>
+              <IonCol class="ion-text-center">
+                <IonButton shape="round" color="primary" onClick={logoutUser}>
                   Logout
                 </IonButton>
               </IonCol>

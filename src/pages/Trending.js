@@ -8,7 +8,7 @@ const Trending = (props) => {
   return (
     <IonPage>
       <SmallHeader title="Trending" />
-      <IonContent fullscreen>
+      <IonContent fullscreen className="trending-content">
         <LargeHeader title="Trending" />
         <ProductList location={props.location} />
       </IonContent>
