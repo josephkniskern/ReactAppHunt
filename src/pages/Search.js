@@ -42,6 +42,7 @@ const Search = () => {
     const query = filter.toLowerCase();
     const matchedProducts = products.filter((product) => {
       return (
+        product.title.toLowerCase().includes(query) ||
         product.description.toLowerCase().includes(query) ||
         product.url.toLowerCase().includes(query) ||
         product.postedBy.name.toLowerCase().includes(query)
